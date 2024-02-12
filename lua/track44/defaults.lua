@@ -28,4 +28,3 @@ vim.opt.smartindent = true
 
 -- Search
 vim.opt.incsearch = true
-

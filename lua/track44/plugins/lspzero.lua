@@ -1,3 +1,7 @@
+local format_map = {
+    pylsp = function() vim.cmd("Black") end
+}
+
 return {
     {
         'VonHeikemen/lsp-zero.nvim',
@@ -8,7 +12,14 @@ return {
             -- Keymaps when language server is active
             lsp_zero.on_attach(function(client, bufnr)
                 lsp_zero.default_keymaps({ buffer = bufnr })
-                vim.keymap.set('n', '<leader>fb', function() vim.lsp.buf.format({ async = false, timeout_ms = 10000 }) end)
+                vim.keymap.set('n', '<leader>fb',
+                    function()
+                        if format_map[client.name] ~= nil then
+                            format_map[client.name]()
+                        else
+                            vim.lsp.buf.format({ async = false, timeout_ms = 10000 })
+                        end
+                    end)
                 vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end)
             end)
 
