@@ -11,6 +11,7 @@ vim.keymap.set("n", "<leader>fs", vim.cmd.Ex)
 
 -- Line Numbers
 vim.opt.relativenumber = true
+vim.opt.number = true
 
 -- Indentation
 vim.opt.tabstop = 4
