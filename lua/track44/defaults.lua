@@ -28,3 +28,15 @@ vim.opt.smartindent = true
 
 -- Search
 vim.opt.incsearch = true
+
+-- Events
+-- On Save
+vim.api.nvim_create_autocmd("BufWritePre", {
+    callback = function ()
+        -- Format on Save
+        local client = vim.lsp.buf_get_clients()
+        if client ~= nil then
+            require("track44.utils.format").format_buffer(client)
+        end
+    end
+})
