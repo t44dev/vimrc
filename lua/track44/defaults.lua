@@ -28,15 +28,16 @@ vim.opt.smartindent = true
 
 -- Search
 vim.opt.incsearch = true
+vim.opt.hlsearch = false
 
 -- Events
 -- On Save
 vim.api.nvim_create_autocmd("BufWritePre", {
-    callback = function ()
+    callback = function()
         -- Format on Save
-        local client = vim.lsp.buf_get_clients()
+        client = vim.lsp.get_clients({ buffer = bufnr })[1]
         if client ~= nil then
-            require("track44.utils.format").format_buffer(client)
+            require("track44.utils.format").format_buffer(client.name)
         end
     end
 })

@@ -6,14 +6,12 @@ local format_map = {
 }
 
 -- Formatting Function
-function complex.format_buffer(client)
-    print("Formatting...")
-    if format_map[client.name] ~= nil then
-        format_map[client.name]()
+function complex.format_buffer(client_name)
+    if format_map[client_name] ~= nil then
+        format_map[cleint_name]()
     else
         vim.lsp.buf.format({ async = false, timeout_ms = 10000 })
     end
-    print("Done Formatting.")
 end
 
 return complex

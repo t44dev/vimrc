@@ -10,7 +10,7 @@ return {
             -- Keymaps when language server is active
             lsp_zero.on_attach(function(client, bufnr)
                 lsp_zero.default_keymaps({ buffer = bufnr })
-                vim.keymap.set('n', '<leader>fb', function() format.format_buffer(client) end)
+                vim.keymap.set('n', '<leader>fb', function() format.format_buffer(client.name) end)
                 vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end)
             end)
 
