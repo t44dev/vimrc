@@ -2,7 +2,7 @@ complex = {}
 
 -- Override default formatter for an LSP
 local format_map = {
-    pylsp = function() vim.cmd("Black") end
+    pyright = function() vim.cmd("Black") end
 }
 
 -- Formatting Function
