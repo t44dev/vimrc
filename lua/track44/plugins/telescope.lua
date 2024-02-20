@@ -1,7 +1,8 @@
 return {
-    'nvim-telescope/telescope.nvim', tag = '0.1.5',
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.5',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function ()        
+    config = function()
         -- Keymaps
         -- https://github.com/nvim-telescope/telescope.nvim?tab=readme-ov-file#pickers
         local builtin = require('telescope.builtin')

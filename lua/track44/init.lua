@@ -1,4 +1,4 @@
--- Defaults 
+-- Defaults
 require("track44.defaults")
 
 -- Plugin Manager
