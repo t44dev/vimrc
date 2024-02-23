@@ -17,6 +17,7 @@ return {
                 request = "launch",
                 name = "Launch File",
                 program = "${file}",
+                console = "internalConsole"
             },
         }
 
@@ -28,11 +29,11 @@ return {
         vim.keymap.set("n", "<Leader>dr", function() require("dap").repl.open() end)
         vim.keymap.set("n", "<Leader>df", function()
             local widgets = require("dap.ui.widgets")
-            widgets.centered_float(widgets.frames)
+            widgets.sidebar(widgets.frames).open()
         end)
         vim.keymap.set("n", "<Leader>ds", function()
             local widgets = require("dap.ui.widgets")
-            widgets.centered_float(widgets.scopes)
+            widgets.sidebar(widgets.scopes).open()
         end)
     end
 }
