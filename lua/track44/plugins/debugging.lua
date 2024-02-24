@@ -1,7 +1,31 @@
+FRAMES_WIDGET = nil
+SCOPES_WIDGET = nil
+
 return {
     "mfussenegger/nvim-dap",
     config = function()
         local dap = require("dap")
+
+        -- Events/Requests *dap-extensions*
+        dap.listeners.after["event_initialized"]["track44_widgets"] = function(session, body)
+            local widgets = require("dap.ui.widgets")
+            if FRAMES_WIDGET == nil then
+                FRAMES_WIDGET = widgets.sidebar(widgets.frames)
+            end
+            if SCOPES_WIDGET == nil then
+                SCOPES_WIDGET = widgets.sidebar(widgets.scopes)
+            end
+            FRAMES_WIDGET.open()
+            SCOPES_WIDGET.open()
+        end
+        dap.listeners.after["event_exited"]["track44_widgets"] = function(session, body)
+            if FRAMES_WIDGET ~= nil then
+                FRAMES_WIDGET.close()
+            end
+            if SCOPES_WIDGET ~= nil then
+                SCOPES_WIDGET.close()
+            end
+        end
 
         -- Adapters
 
@@ -17,7 +41,7 @@ return {
                 request = "launch",
                 name = "Launch File",
                 program = "${file}",
-                console = "internalConsole"
+                console = "integratedTerminal"
             },
         }
 
@@ -28,12 +52,14 @@ return {
         vim.keymap.set("n", "<Leader>db", function() require("dap").toggle_breakpoint() end, {})
         vim.keymap.set("n", "<Leader>dr", function() require("dap").repl.open() end)
         vim.keymap.set("n", "<Leader>df", function()
-            local widgets = require("dap.ui.widgets")
-            widgets.sidebar(widgets.frames).open()
+            if FRAMES_WIDGET ~= nil then
+                FRAMES_WIDGET.toggle()
+            end
         end)
         vim.keymap.set("n", "<Leader>ds", function()
-            local widgets = require("dap.ui.widgets")
-            widgets.sidebar(widgets.scopes).open()
+            if SCOPES_WIDGET ~= nil then
+                SCOPES_WIDGET.toggle()
+            end
         end)
     end
 }
